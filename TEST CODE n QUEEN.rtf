@@ -1,0 +1,62 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2512
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 # N QUEEN PROBLEM\
+\
+class Solution:\
+    count=0\
+    \
+    def totalNQueens(self, n):\
+        '''\
+        :type n: int\
+        :rtype: list of list of str\
+        '''\
+        #results = []\
+        #count=0\
+\
+        self.solve(0, n, [])\
+\
+        return self.count\
+\
+    def solve(self, row, n, col_placements):\
+        if row == n:\
+            self.count+=1\
+\
+            return\
+\
+        for col in range(0, n):\
+            # Choose\
+            col_placements.append(col)\
+\
+            # Constraint\
+            if self.is_valid(col_placements):\
+                # Explore\
+                self.solve(row + 1, n, col_placements)\
+\
+            col_placements.pop()\
+\
+    def is_valid(self, col_placements):\
+        #print(" cp and lenght: ", col_placements, len(col_placements))\
+        row_we_are_validating_on = len(col_placements) - 1 #because of 0 indexing\
+        \
+         #checking for every queen in each row till my current col placement position-using for           loop\
+        #for checking diagonal constraint mathematically we can use the concept that if          vertical and horizontal distance of a point from a point is same they are diagonal, i.E Queens placed will attack each other , mathematically, when abs_col_dist==abs_row_di\
+\
+        for ith_queen_row in range(0, row_we_are_validating_on):\
+            absolute_column_distance = abs(\
+                col_placements[ith_queen_row] -\
+                col_placements[row_we_are_validating_on]\
+            )\
+            row_distance = row_we_are_validating_on - ith_queen_row\
+\
+            if (\
+                absolute_column_distance == 0 or\
+                absolute_column_distance == row_distance\
+            ):\
+                return False\
+\
+        return True}
